@@ -1,25 +1,35 @@
-import * as THREE from "../modules/Threejs/three.module.js";
+import * as THREE from 'three';
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+function main() {
+	const canvas = document.getElementById("ThreeJSCanvas");
+	const renderer = new THREE.WebGLRenderer( { antialias: true, canvas } );
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setAnimationLoop( animate );
-document.body.appendChild( renderer.domElement );
+	const fov = 75;
+	const aspect = 1;
+	const near = 0.1;
+	const far = 5;
+	const camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+	camera.position.x = -2; camera.position.y = 2; camera.position.z = 2;  
+    camera.lookAt(0, 0, 0);
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+	const scene = new THREE.Scene();
 
-camera.position.z = 5;
+	const boxWidth = 1;
+	const boxHeight = 1;
+	const boxDepth = 1;
+	const geometry = new THREE.BoxGeometry( boxWidth, boxHeight, boxDepth );
 
-function animate() {
+	const material = new THREE.MeshPhongMaterial( { color: 0xFFFFFF } ); // greenish blue
 
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
+	const cube = new THREE.Mesh( geometry, material );
+	scene.add( cube );
+
+    const light = new THREE.DirectionalLight(0xFFFFFF, 2);
+    light.position.set(2, 2, 2);
+    scene.add(light);
 
 	renderer.render( scene, camera );
 
 }
+
+main();

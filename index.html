@@ -5,10 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Web Document Template</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="./css/index.css">
     </head>
     <body>
-        <script type="module" src="scripts/main.js"></script>
-        <p>This is a test of the HTML Boilerplate Code & Publication of webpage through Github Pages.</p>
+        <script type="importmap">
+            {
+              "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@v0.174.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.174.0/examples/jsm/"
+              }
+            }
+          </script>
+        <script type="module" src="./scripts/main.js"></script>
+        <div class="container">
+            <h1>Emerging Production Technologies - Web Document Template</h1>
+            <p>This is a test of the HTML Boilerplate Code & Publication of webpage through Github Pages.</p>
+            <canvas id="ThreeJSCanvas" width="800" height="800"></canvas>
+        </div>
     </body>
 </html>

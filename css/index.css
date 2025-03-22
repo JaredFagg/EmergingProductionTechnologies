@@ -1,0 +1,23 @@
+@font-face {
+    font-family: CreatoDisplay_Regular;
+    src: url(./fonts/CreatoDisplay-Regular.otf);
+  }
+
+@font-face {
+    font-family: CreatoDisplay_Bold;
+    src: url(./fonts/CreatoDisplay-Bold.otf);
+  }
+
+p, li, a {
+    font-family: CreatoDisplay_Regular;
+}
+
+h1 {
+    font-family: CreatoDisplay_Bold;
+}
+
+.container {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
