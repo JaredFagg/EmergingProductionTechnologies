@@ -1,0 +1,91 @@
+.TitleBar {
+    position: relative;
+    width: auto;
+    height:10vh;
+    padding: 1%;
+    z-index: 5;
+}
+.TitleBarLogo {
+    float: left;
+    width: 33%;
+    height: inherit;
+}
+
+.TitleBarLogo img {
+    width:15vw;
+    height:auto;
+    position: absolute;
+}
+
+.TitleBarHeading {
+    float: left;
+    width: 33%;
+    height: inherit;
+    text-align: center;
+}
+
+.TitleBarHeading h1 {
+    text-align: center;
+    margin-top: 2%;
+    font-size: 2vw;
+}
+
+.TitleBarButton {
+    float: left;
+    width: 33%;
+    height: inherit;
+}
+
+.TitleBarButton button {
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    padding: 1vw;
+
+    background: linear-gradient(180deg, rgba(115,255,182,1) 0%, rgba(50,222,132,1) 100%);
+    color:white;
+    text-align: center;
+    
+    float: right;
+    transition-duration: 0.4s;
+}
+
+.TitleBarButton button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    cursor: pointer;
+}
+
+.TitleBarButton button:active {
+    filter:brightness(90%);
+}
+
+.TitlePage {
+    width: 100%;
+    z-index: 5;
+}
+
+.TitlePageHook {
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-inline: auto; 
+    top:40%;
+    z-index: 5;
+
+    font-size:2vw;
+    text-align: center;
+    color: white;
+}
+
+.TitlePageScroll {
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-inline: auto; 
+    top:87%;
+    z-index: 5;
+
+    font-size:2vw;
+    text-align: center;
+    color: white;
+}

@@ -66,7 +66,6 @@ function createScene(sc) {
 
 		sc.add(scene);
 	});
-
 }
 
 function helper(sc, c, r) {
@@ -82,7 +81,7 @@ function update() {
 	camera.aspect =  window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(window.innerWidth, window.innerHeight);;
 
 	renderer.render(scene, camera);
 }

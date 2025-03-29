@@ -19,39 +19,17 @@ p, li, a {
     padding:0%;
 }
 
-h1 {
+h1, button {
     font-family: CreatoDisplay_Bold;
     margin:0%;
     padding:0%;
 }
-
 .ThreeJSCanvas {
     width: 100%;
     height: 100%;
-}
-
-.HeadingText {
-    position: absolute; 
-    left: 0; 
-    right: 0; 
-    margin-inline: auto; 
-    width: fit-content;
-    z-index: 5;
-    top:40%;
-    font-size:2vw;
-    text-align: center;
-    color: white;
-}
-
-.HeadingScrollText {
-    position: absolute; 
-    left: 0; 
-    right: 0; 
-    margin-inline: auto; 
-    width: fit-content;
-    z-index: 5;
-    top:87%;
-    font-size:2vw;
-    text-align: center;
-    color: white;
+    margin:0%;
+    padding:0%;
+    border: none;
+    position: absolute;
+    z-index: 1;
 }
