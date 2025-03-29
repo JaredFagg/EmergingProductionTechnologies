@@ -8,6 +8,11 @@
     src: url(./fonts/CreatoDisplay-Bold.otf);
   }
 
+html, head, body {
+    margin: 0%;
+    padding: 0%;
+}
+
 p, li, a {
     font-family: CreatoDisplay_Regular;
 }
@@ -16,8 +21,8 @@ h1 {
     font-family: CreatoDisplay_Bold;
 }
 
-.container {
-    margin: auto;
-    width: 50%;
-    text-align: center;
+.ThreeJSCanvas {
+    z-index: 5;
+    width: 100vw;
+    height: 100vh;
 }
