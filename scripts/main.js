@@ -38,7 +38,7 @@ function createScene(sc) {
 	scene.add(pointLight, ambientLight);
 
 	const gltfLoader = new GLTFLoader();
-	gltfLoader.load('../assets/models/Keyboard_Model.glb', function ( gltf) {
+	gltfLoader.load('../public/models/Keyboard_Model.glb', function ( gltf) {
 		const model = gltf.scene;
 		const modelMaterial = new THREE.MeshPhongMaterial({
 			color: 0x1f1f1f
@@ -52,7 +52,7 @@ function createScene(sc) {
 		sc.add(model);
 	});
 
-	gltfLoader.load('../assets/models/Keyboard_Scene.glb', function ( gltf) {
+	gltfLoader.load('../public/models/Keyboard_Scene.glb', function ( gltf) {
 		const scene = gltf.scene;
 		const sceneMaterial = new THREE.MeshPhongMaterial({
 			color: 0xffffff
