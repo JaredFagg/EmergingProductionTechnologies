@@ -24,7 +24,8 @@ function main() {
 }
 
 function modifyScene(sc, c) {
-	sc.background = new THREE.Color().setRGB(1,1,1);
+	//sc.background = new THREE.Color().setRGB(1, 1, 1);
+	sc.background = new THREE.TextureLoader().load('./public/textures/background.png');
 	c.position.set(1.8, 2.4, 0);
 	c.lookAt(0, 0, 0);
 }
@@ -38,7 +39,7 @@ function createScene(sc) {
 	scene.add(pointLight, ambientLight);
 
 	const gltfLoader = new GLTFLoader();
-	gltfLoader.load('../public/models/Keyboard_Model.glb', function ( gltf) {
+	gltfLoader.load('./public/models/Keyboard_Model.glb', function ( gltf) {
 		const model = gltf.scene;
 		const modelMaterial = new THREE.MeshPhongMaterial({
 			color: 0x1f1f1f
@@ -52,7 +53,7 @@ function createScene(sc) {
 		sc.add(model);
 	});
 
-	gltfLoader.load('../public/models/Keyboard_Scene.glb', function ( gltf) {
+	gltfLoader.load('./public/models/Keyboard_Scene.glb', function ( gltf) {
 		const scene = gltf.scene;
 		const sceneMaterial = new THREE.MeshPhongMaterial({
 			color: 0xffffff
@@ -78,6 +79,11 @@ function helper(sc, c, r) {
 function update() {
 	requestAnimationFrame(update);
 	//controls.update();
+	camera.aspect =  window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+
 	renderer.render(scene, camera);
 }
 
