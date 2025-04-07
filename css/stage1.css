@@ -1,3 +1,8 @@
+.LandingPage {
+    width: 100%;
+    min-height:100vh
+}
+
 .TitleBar {
     position: relative;
     width: auto;

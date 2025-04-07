@@ -1,0 +1,51 @@
+.SpecsPage {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.KeyboardDetails {
+    min-height: 100vh;
+}
+
+.left {
+    float: left;
+    width: 45vw;
+    background-color: rgba(0, 0, 255, 0.500);
+}
+
+.right {
+    float: right;
+    width: 55vw;
+    background-color: rgba(255, 0, 0, 0.500);
+}
+
+.DetailsRow {
+    margin: 5%;
+    padding: 5%;
+    background-color: white;
+    border-radius: 1vw;
+    
+}
+
+.DetailsRow img {
+    width: 15%;
+    height: auto;
+    float: left;
+    margin-right: 5%;
+}
+
+.DetailsRow h1{
+    font-size:2vw;
+}
+
+.DetailsRow p{
+    font-size:1vw;
+}
+
+.KeyboardDetailsCentered {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
