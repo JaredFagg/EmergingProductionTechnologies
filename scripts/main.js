@@ -1,19 +1,21 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 let controls;
 let scene;
 let camera;
 let renderer;
-let composer;
-let path;
+
+let keyboard;
+
+let cameraTrack;
+let cameralookat;
+var pathPos = 0;    
 
 function main() {
+	window.scrollTo(0, 0);
+	
 	// Establishes ThreeJS Canvas, Renderer, Camera & Scene.
 	const canvas = document.getElementById("ThreeJSCanvas");
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -27,8 +29,7 @@ function main() {
 	modifyScene(scene, camera);
 	//helper(scene, camera, renderer);
 	createScene(scene);
-
-	postProcessing(scene, camera, renderer)
+	Array(200).fill().forEach(addStar);
 }
 
 function modifyScene(sc, c) {
@@ -38,6 +39,21 @@ function modifyScene(sc, c) {
 	c.position.set(1.8, 2.4, 0);
 	c.lookAt(0, 0, 0);
 }
+
+function addStar() {
+	const geometry = new THREE.SphereGeometry(THREE.MathUtils.randFloatSpread(1.5), 24, 24);
+	const material = new THREE.MeshStandardMaterial({ color: 0x000000 });
+	const star = new THREE.Mesh(geometry, material);
+  
+	const [x, y, z] = Array(3)
+	  .fill()
+	  .map(() => THREE.MathUtils.randFloatSpread(100));
+  
+	star.position.set(x, y, z);
+	scene.add(star);
+  }
+  
+
 
 function createScene(sc) {
 	// Creates a Light
@@ -76,28 +92,59 @@ function createScene(sc) {
 		sc.add(scene);
 	});
 
-	const points = [
+	gltfLoader.load('./public/models/Keyboard_Rotate.glb', function ( gltf) {
+		keyboard = gltf.scene;
+		const modelMaterial = new THREE.MeshPhongMaterial({
+			color: 0x1f1f1f
+		});
+		keyboard.traverse((o) => {
+			if(o.isMesh) {
+				o.material = modelMaterial;
+			}
+		})
+
+		keyboard.position.set(11.8,7.5,6);
+
+		sc.add(keyboard);
+	});
+
+	const trackPoints = [
 		new THREE.Vector3(1.8, 2.4, 0),
 		new THREE.Vector3(4, 4, 0),
-		new THREE.Vector3(8, 8, 0),
+		new THREE.Vector3(8, 8, 0)
 	];
 
-	path = new THREE.CatmullRomCurve3(points);
+	const lookatPoints = [
+		new THREE.Vector3(0, 0, 0),
+		new THREE.Vector3(2, 2, 1.5),
+		new THREE.Vector3(4, 4, 3),
+		new THREE.Vector3(6, 6, 4.5),
+		new THREE.Vector3(8, 8, 6)
+	];
 
-	const pathGeometry = new THREE.BufferGeometry().setFromPoints(path.getPoints(50));
+	cameraTrack = new THREE.CatmullRomCurve3(trackPoints);
+	cameralookat = new THREE.CatmullRomCurve3(lookatPoints);
+
+	const pathGeometry = new THREE.BufferGeometry().setFromPoints(cameraTrack.getPoints(50));
 	const pathMaterial = new THREE.LineBasicMaterial({color: 0xff0000});
 	const pathObject = new THREE.Line(pathGeometry, pathMaterial);
-	scene.add(pathObject);
+	//scene.add(pathObject);
+	const pathGeometry2 = new THREE.BufferGeometry().setFromPoints(cameralookat.getPoints(50));
+	const pathObject2 = new THREE.Line(pathGeometry2, pathMaterial);
+	//scene.add(pathObject2);
+
+	camera.position.copy(cameraTrack.getPointAt(0));
 }
 
-function postProcessing(s, c, r) {
-	composer = new EffectComposer( r );
+window.addEventListener("wheel", onMouseWheel);
 
-	const renderPass = new RenderPass( s, c );
-	composer.addPass( renderPass );
+function onMouseWheel(event) {
 
-	const outputPass = new OutputPass();
-	composer.addPass( outputPass );
+	pathPos += event.deltaY / 1000;
+	console.log(pathPos);
+
+	camera.position.copy(cameraTrack.getPointAt(pathPos));
+	camera.lookAt(cameralookat.getPointAt(pathPos));
 }
 
 function helper(sc, c, r) {
@@ -105,7 +152,7 @@ function helper(sc, c, r) {
 	const gridHelper = new THREE.GridHelper(200, 50);
 	sc.add(gridHelper);
 	controls = new OrbitControls(c, r.domElement);
-}
+} 
 
 function update() {
 	requestAnimationFrame(update);
@@ -113,11 +160,13 @@ function update() {
 	camera.aspect =  window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, window.innerHeight);;
+	renderer.setSize(window.innerWidth, window.innerHeight);
+
+	keyboard.rotation.y += 0.01;
 
 	renderer.render(scene, camera);
-	composer.render();
 }
+
 
 main();
 update();
