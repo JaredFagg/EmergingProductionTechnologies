@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/stage1.css">
     <link rel="stylesheet" href="./css/stage2.css">
+    <link rel="stylesheet" href="./css/stage3.css">
     <link rel="icon" type="image/x-icon" href="./public/images/Logo.png">
   </head>
 
@@ -22,9 +23,15 @@
     </script>
     <canvas id="ThreeJSCanvas" class="ThreeJSCanvas"></canvas>
     <script type="module" src="./scripts/main.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
+    <script>
+      function displayNone(x) {
+        x.remove();
+      }
+    </script>
 
     <!-- Stage 1 - Landing Page-->
-    <div class="LandingPage">
+    <div class="LandingPage" id="heightref">
       <div class="TitleBar">
         <div class="TitleBarLogo">
           <img src="./public/images/TitleLogo.png">
@@ -48,6 +55,7 @@
     <!-- Stage 2 - Specs Page -->
     <div class="SpecsPage">
       <div class="KeyboardDetails left">
+        <img class="grabIcon" id="grab" src="./public/images/hand.png" onmouseover="displayNone(this)">
       </div>
       <div class="KeyboardDetails right">
         <div class="KeyboardDetailsCentered">
@@ -72,5 +80,17 @@
         </div>
       </div>
     </div>
+
+      <!-- Stage 3 - Buy Now Page -->
+      <div class="BuyNowPage">
+        <div class="Details bnleft">
+        </div>
+        <div class="Details bnright">
+          <div class="BuyNow">
+            <h1>Void C1 Keyboard</h1>
+            <p>100% ANSI Layout Keyboard</p>
+          </div>
+        </div>
+      </div>
   </body>
 </html>

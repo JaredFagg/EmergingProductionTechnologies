@@ -1,0 +1,28 @@
+.BuyNowPage {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.Details {
+    min-height: 100vh;
+}
+
+.bnleft {
+    float: left;
+    width: 45vw;
+}
+
+.bnright {
+    float: right;
+    width: 55vw;
+}
+
+.BuyNow {
+    min-height: 75vh;
+    margin: 5%;
+    padding: 5%;
+    background-color: white;
+    box-shadow: 10px 10px;
+    border-radius: 1vw;
+}

@@ -11,13 +11,15 @@
 .left {
     float: left;
     width: 45vw;
-    /*background-color: rgba(0, 0, 255, 0.500);*/
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .right {
     float: right;
     width: 55vw;
-    /*background-color: rgba(255, 0, 0, 0.500);*/
 }
 
 .DetailsRow {
@@ -26,7 +28,6 @@
     background-color: white;
     box-shadow: 10px 10px;
     border-radius: 1vw;
-    
 }
 
 .DetailsRow img {
@@ -47,6 +48,11 @@
 .KeyboardDetailsCentered {
     position: absolute;
     top: 50%;
-    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+.grabIcon {
+    width: 15%;
+    height: auto;
+    opacity: 50%;
 }

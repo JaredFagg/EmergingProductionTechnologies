@@ -7,7 +7,7 @@ let scene;
 let camera;
 let renderer;
 
-let keyboard;
+let InteractableKeyboard;
 
 let cameraTrack;
 let cameralookat;
@@ -26,10 +26,10 @@ function main() {
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
-	modifyScene(scene, camera);
 	//helper(scene, camera, renderer);
+	modifyScene(scene, camera);
+	//Array(200).fill().forEach(addStar);
 	createScene(scene);
-	Array(200).fill().forEach(addStar);
 }
 
 function modifyScene(sc, c) {
@@ -42,7 +42,7 @@ function modifyScene(sc, c) {
 
 function addStar() {
 	const geometry = new THREE.SphereGeometry(THREE.MathUtils.randFloatSpread(1.5), 24, 24);
-	const material = new THREE.MeshStandardMaterial({ color: 0x000000 });
+	const material = new THREE.MeshBasicMaterial({ color: 0x000000});
 	const star = new THREE.Mesh(geometry, material);
   
 	const [x, y, z] = Array(3)
@@ -52,8 +52,6 @@ function addStar() {
 	star.position.set(x, y, z);
 	scene.add(star);
   }
-  
-
 
 function createScene(sc) {
 	// Creates a Light
@@ -93,33 +91,31 @@ function createScene(sc) {
 	});
 
 	gltfLoader.load('./public/models/Keyboard_Rotate.glb', function ( gltf) {
-		keyboard = gltf.scene;
+		InteractableKeyboard = gltf.scene;
 		const modelMaterial = new THREE.MeshPhongMaterial({
 			color: 0x1f1f1f
 		});
-		keyboard.traverse((o) => {
+		InteractableKeyboard.traverse((o) => {
 			if(o.isMesh) {
 				o.material = modelMaterial;
 			}
 		})
 
-		keyboard.position.set(11.8,7.5,6);
+		InteractableKeyboard.position.set(3, 5, 4.5);
 
-		sc.add(keyboard);
+		sc.add(InteractableKeyboard);
 	});
 
 	const trackPoints = [
 		new THREE.Vector3(1.8, 2.4, 0),
 		new THREE.Vector3(4, 4, 0),
-		new THREE.Vector3(8, 8, 0)
+		new THREE.Vector3(8, 8, 0),
+		new THREE.Vector3(16, 8, 0)
 	];
 
 	const lookatPoints = [
 		new THREE.Vector3(0, 0, 0),
-		new THREE.Vector3(2, 2, 1.5),
-		new THREE.Vector3(4, 4, 3),
-		new THREE.Vector3(6, 6, 4.5),
-		new THREE.Vector3(8, 8, 6)
+		new THREE.Vector3(0, 8, 0)
 	];
 
 	cameraTrack = new THREE.CatmullRomCurve3(trackPoints);
@@ -128,10 +124,10 @@ function createScene(sc) {
 	const pathGeometry = new THREE.BufferGeometry().setFromPoints(cameraTrack.getPoints(50));
 	const pathMaterial = new THREE.LineBasicMaterial({color: 0xff0000});
 	const pathObject = new THREE.Line(pathGeometry, pathMaterial);
-	//scene.add(pathObject);
+	scene.add(pathObject);
 	const pathGeometry2 = new THREE.BufferGeometry().setFromPoints(cameralookat.getPoints(50));
 	const pathObject2 = new THREE.Line(pathGeometry2, pathMaterial);
-	//scene.add(pathObject2);
+	scene.add(pathObject2);
 
 	camera.position.copy(cameraTrack.getPointAt(0));
 }
@@ -140,8 +136,9 @@ window.addEventListener("wheel", onMouseWheel);
 
 function onMouseWheel(event) {
 
-	pathPos += event.deltaY / 1000;
-	console.log(pathPos);
+	pathPos += event.deltaY / (window.innerHeight * 2);
+	pathPos = THREE.MathUtils.clamp(pathPos, 0, 1);
+	console.log(window.innerHeight);
 
 	camera.position.copy(cameraTrack.getPointAt(pathPos));
 	camera.lookAt(cameralookat.getPointAt(pathPos));
@@ -154,19 +151,23 @@ function helper(sc, c, r) {
 	controls = new OrbitControls(c, r.domElement);
 } 
 
-function update() {
-	requestAnimationFrame(update);
-	//controls.update();
+function assignSettings() {
 	camera.aspect =  window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);
+}
 
-	keyboard.rotation.y += 0.01;
+function update() {
+	requestAnimationFrame(update);
+
+	InteractableKeyboard.rotation.y += 0.01;
+
+	//controls.update();
+	assignSettings();
 
 	renderer.render(scene, camera);
 }
-
 
 main();
 update();
