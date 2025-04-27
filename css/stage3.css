@@ -4,23 +4,13 @@
     min-height: 100vh;
 }
 
-.Details {
-    min-height: 100vh;
-}
-
-.bnleft {
-    float: left;
-    width: 45vw;
-}
-
-.bnright {
-    float: right;
-    width: 55vw;
-}
-
 .BuyNow {
-    min-height: 75vh;
-    margin: 5%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 50vh;
+    width: 40vw;
     padding: 5%;
     background-color: white;
     box-shadow: 10px 10px;

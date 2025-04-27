@@ -9,6 +9,11 @@ let camera;
 let renderer;
 
 let InteractableKeyboard;
+let isKeyboardAnimate = true;
+let mouse = false;
+let mouseX;
+let mouseY;
+let selectedObject;
 
 let cameraTrack;
 let cameralookat;
@@ -85,14 +90,11 @@ function createScene(sc) {
 		InteractableKeyboard.traverse((o) => {
 			if(o.isMesh) {
 				o.material = modelMaterial;
+				o.name = "InteractableKeyboard";
 			}
 		})
 
 		InteractableKeyboard.name = "InteractableKeyboard";
-
-		InteractableKeyboard.position.set(3, 5, window.innerWidth / 390);
-
-
 		sc.add(InteractableKeyboard);
 	});
 
@@ -122,6 +124,13 @@ function createScene(sc) {
 	camera.position.copy(cameraTrack.getPointAt(0));
 }
 
+document.addEventListener('mousemove', trackPosition);
+
+function trackPosition(event) {
+	mouseX = event.clientX;
+	mouseY = event.clientY;
+}
+
 window.addEventListener("wheel", onMouseWheel);
 
 function onMouseWheel(event) {
@@ -134,13 +143,66 @@ function onMouseWheel(event) {
 	camera.lookAt(cameralookat.getPointAt(pathPos));
 }
 
-function animateKeyboard() {
+const raycaster = new THREE.Raycaster();
 
+document.addEventListener('mousedown', onMouseDown);
+
+function onMouseDown(event) {
+
+	mouse = true;
+
+	const coords = new THREE.Vector2(
+		(event.clientX / renderer.domElement.clientWidth) * 2 - 1,
+		-((event.clientY / renderer.domElement.clientHeight) * 2 - 1),
+	);
+
+	raycaster.setFromCamera(coords, camera);
+
+	const intersections = raycaster.intersectObjects(scene.children, true);
+	if (intersections.length > 0) {
+		selectedObject = intersections[0].object;
+
+		console.log(selectedObject);
+	}
+}
+
+document.addEventListener('mouseup', onmouseup);
+
+function onmouseup(event) {
+	mouse = false
+}
+
+function animateKeyboard() {
 	if(InteractableKeyboard == null) {
-			 
+
 	} else {
-		InteractableKeyboard.rotation.y += 0.01;
-		InteractableKeyboard.position.set(3, 5, window.innerWidth / 420);
+		if(isKeyboardAnimate) {
+			InteractableKeyboard.rotation.y += 0.01;
+		} else {
+			InteractableKeyboard.rotation.set(InteractableKeyboard.rotation.x, 
+				InteractableKeyboard.rotation.y, 
+				InteractableKeyboard.rotation.z);
+		}
+
+		if(selectedObject == null) {
+
+		} else {
+			if(mouse && selectedObject.name == "InteractableKeyboard") {
+				isKeyboardAnimate = false;
+				if(isKeyboardAnimate == false) {
+					InteractableKeyboard.rotation.set(InteractableKeyboard.rotation.x,
+						mouseX / 100,
+						InteractableKeyboard.rotation.z);
+				}
+	
+			} else {
+				isKeyboardAnimate = true;
+				selectedObject = null;
+			}
+		}
+
+
+		InteractableKeyboard.position.set(3, 5, window.innerWidth / 440);
 	}
 }
 
@@ -163,6 +225,8 @@ function update() {
 
 	animateKeyboard();
 
+	console.log(mouse);
+
 	//controls.update();
 	assignSettings();
 
@@ -172,22 +236,3 @@ function update() {
 main();
 update();
 
-const raycaster = new THREE.Raycaster();
-
-document.addEventListener('mousedown', onMouseDown);
-
-function onMouseDown(event) {
-
-	const coords = new THREE.Vector2(
-		(event.clientX / renderer.domElement.clientWidth) * 2 - 1,
-		-((event.clientY / renderer.domElement.clientHeight) * 2 - 1),
-	);
-
-	raycaster.setFromCamera(coords, camera);
-
-	const intersections = raycaster.intersectObjects(scene.children, true);
-	if (intersections.length > 0) {
-		const selectedObject = intersections[0].object;
-		console.log(selectedObject);
-	}
-}
