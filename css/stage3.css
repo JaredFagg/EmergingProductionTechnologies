@@ -10,9 +10,159 @@
     top: 50%;
     transform: translate(-50%, -50%);
     min-height: 50vh;
-    width: 40vw;
-    padding: 5%;
+    width: 70vw;
+    padding-top: 12vh;
+    padding-bottom: 12vh;
+    padding-left: 5vw;
+    padding-right: 5vw;
     background-color: white;
     box-shadow: 10px 10px;
     border-radius: 1vw;
+}
+
+.preview {
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    float: left;
+}
+
+.PreviewCanvas {
+    border-radius: 1vw;
+    float:left;
+    width: 40vw;
+    height: 51vh;
+    margin:0%;
+    padding:0%;
+    border: none;
+    z-index: 5;
+}
+
+.Form {
+    float: left;
+    margin-left: 2vw;
+    line-height: 1.5;
+    width: 25vw;
+}
+
+.overlayControls {
+    position: absolute;
+    z-index: 5;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 75%;
+    height: auto;
+}
+
+.buttonGroup {
+    display:block; 
+    margin:0 auto;
+    text-align: center;
+}
+
+.buttonGroup button {
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    margin-right: 0.5vw;
+    border-radius: 0.2vw;
+    font-size: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    border: 3px solid black;
+    color:black;
+    font-family: CreatoDisplay_Regular;
+    background-color: white;
+    text-align: center;
+}
+
+.buybutton button {
+    margin-top: 1.5%;
+    margin-right: 0.5vw;
+    border-radius: 0.2vw;
+    font-size: 1vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    border: 3px solid black;
+    color:black;
+    font-family: CreatoDisplay_Regular;
+    background-color: white;
+    text-align: center;
+    width: 100%;
+    transition: 0.1s;
+}
+
+.black:hover {
+    cursor: pointer;
+    background-color: #232a33;
+    border-color: #232a33;
+    color: white;
+    transition: 0.1s;
+}
+
+.white:hover {
+    cursor: pointer;
+    background-color: #f0ead6;
+    border-color: #f0ead6;
+    color: white;
+    transition: 0.1s;
+}
+
+.red:hover {
+    cursor: pointer;
+    background-color: #92181f;
+    border-color: #92181f;
+    color: white;
+    transition: 0.1s;
+}
+
+.Linear:hover {
+    cursor: pointer;
+    background-color: #C40233;
+    border-color: #C40233;
+    color: white;
+    transition: 0.1s;
+}
+
+.Tactile:Hover {
+    cursor: pointer;
+    background-color: #F9C70C;
+    border-color: #F9C70C;
+    color: white;
+    transition: 0.1s;
+}
+
+.Clicky:Hover {
+    cursor: pointer;
+    background-color: #385E3C;
+    border-color: #385E3C;
+    color: white;
+    transition: 0.1s;
+}
+
+.Cart:Hover {
+    cursor: pointer;
+    background-color: #385E3C;
+    border-color: #385E3C;
+    color: white;
+    transition: 0.1s;
+}
+
+.Checkout:Hover {
+    cursor: pointer;
+    background-color: rgba(50,222,132,1);
+    border-color: rgba(50,222,132,1);
+    color: white;
+    transition: 0.1s;
+}
+
+.rounded {
+    color: darkslategray;
+    border: 2px solid darkslategray;
+    border-radius: 14px;
+    opacity: 50%;
 }

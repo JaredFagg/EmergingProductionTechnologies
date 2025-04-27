@@ -131,18 +131,6 @@ function trackPosition(event) {
 	mouseY = event.clientY;
 }
 
-window.addEventListener("wheel", onMouseWheel);
-
-function onMouseWheel(event) {
-
-	pathPos += event.deltaY / (window.innerHeight * 2);
-	pathPos = THREE.MathUtils.clamp(pathPos, 0, 1);
-	console.log(window.innerHeight);
-
-	camera.position.copy(cameraTrack.getPointAt(pathPos));
-	camera.lookAt(cameralookat.getPointAt(pathPos));
-}
-
 const raycaster = new THREE.Raycaster();
 
 document.addEventListener('mousedown', onMouseDown);
@@ -179,9 +167,9 @@ function animateKeyboard() {
 		if(isKeyboardAnimate) {
 			InteractableKeyboard.rotation.y += 0.01;
 		} else {
-			InteractableKeyboard.rotation.set(InteractableKeyboard.rotation.x, 
+			InteractableKeyboard.rotation.set(0, 
 				InteractableKeyboard.rotation.y, 
-				InteractableKeyboard.rotation.z);
+				0);
 		}
 
 		if(selectedObject == null) {
@@ -225,7 +213,9 @@ function update() {
 
 	animateKeyboard();
 
-	console.log(mouse);
+	pathPos = window.scrollY / (window.innerHeight * 2);
+	camera.position.copy(cameraTrack.getPointAt(pathPos));
+	camera.lookAt(cameralookat.getPointAt(pathPos));
 
 	//controls.update();
 	assignSettings();

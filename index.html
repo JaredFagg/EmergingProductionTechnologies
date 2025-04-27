@@ -24,6 +24,7 @@
     <canvas id="ThreeJSCanvas" class="ThreeJSCanvas"></canvas>
     <script type="module" src="./scripts/main.js"></script>
     <script type="module" src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/preview.js"></script>
     <script>
       function displayNone(x) {
         x.remove();
@@ -40,7 +41,7 @@
           <h1>Void C1 Keyboard</h1>
         </div>
         <div class="TitleBarButton">
-          <button>Order Now</button>
+          <button><a href="#bottom">Order Now</a></button>
         </div>
       </div>
       <div class="TitlePage">
@@ -60,33 +61,66 @@
       <div class="KeyboardDetails right">
         <div class="KeyboardDetailsCentered">
           <div class="DetailsRow">
-            <img src="public/images/placeholder.png">
-            <h1>Lorem Ipsum Dolor</h1>
-            <p><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nisl urna, egestas sit amet 
-              consequat ut, tempus ac nibh.</p>
+            <img src="public/images/Functionality.png">
+            <h1>Uncompromising Functionality</h1>
+            <p><br>Offered in 100% ANSI Layout, this keyboard has every key you need compared to our 80% and 50%
+              models. Whether it's gaming, production or entertainment, let this keyboard be the steady hand guiding 
+              you through every keystroke.</p>
           </div>
           <div class="DetailsRow">
-            <img src="public/images/placeholder.png">
-            <h1>Lorem Ipsum Dolor</h1>
-            <p><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nisl urna, egestas sit amet 
-              consequat ut, tempus ac nibh.</p>
+            <img src="public/images/Customize.png">
+            <h1>Customization</h1>
+            <p><br>Each component of this keyboard is fully customizable. We offer new custom key caps, different
+              key switches and many stylish cases. We also have the resources to manufacture any custom designs! To
+              learn more, <a href="#home">click this link!</a></p>
           </div>
           <div class="DetailsRow">
-            <img src="public/images/placeholder.png">
-            <h1>Lorem Ipsum Dolor</h1>
-            <p><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nisl urna, egestas sit amet 
-              consequat ut, tempus ac nibh.</p>
+            <img src="public/images/Continuity.png">
+            <h1>Continuity</h1>
+            <p><br>Our keyboard is supports any kind of platform. The device firmware is adaptable to all existing peripheral 
+              based configuration tools and offers the full suite of features in every third party program.</p>
           </div>
         </div>
       </div>
     </div>
 
       <!-- Stage 3 - Buy Now Page -->
-      <div class="BuyNowPage">
+      <div id="bottom" class="BuyNowPage">
         <div class="Details">
           <div class="BuyNow">
-            <h1>Void C1 Keyboard</h1>
-            <p>100% ANSI Layout Keyboard</p>
+            <div class="preview">
+              <canvas id="PreviewCanvas" class="PreviewCanvas"></canvas>
+              <img src="./public/images/ZoomPanRotate.png" class="overlayControls" onmouseover="displayNone(this)">
+            </div>
+            <div class="Form">
+              <h1>Void C1 Keyboard</h1>
+              <p>100% ANSI Layout Keyboard</p>
+              <h1>$214.99</h1>
+
+              <hr class="rounded">
+
+              <div>
+                <p>Colour:</p>
+                <div class="buttonGroup">
+                  <button class="black">Carbon Black</button>
+                  <button class="white">Shell White</button>
+                  <button class="red">Velvet Red</button>
+                </div>
+                <p>Switch Type:</p>
+                <div class="buttonGroup">
+                  <button class="Linear">Void Linear</button>
+                  <button class="Tactile">Void Tactile</button>
+                  <button class="Clicky">Void Clicky</button>
+                </div>
+              </div>
+
+              <hr class="rounded">
+
+              <div class="buybutton">
+                <button class="Cart">Add To Cart</button>
+                <button class="Checkout">Checkout</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

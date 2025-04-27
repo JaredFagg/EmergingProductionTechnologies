@@ -13,10 +13,21 @@ html, head, body {
     padding: 0%;
 }
 
+html {
+    scroll-behavior: smooth;
+    transition: 0.5s;
+}
+
 p, li, a {
     font-family: CreatoDisplay_Regular;
     margin:0%;
     padding:0%;
+
+}
+
+a {
+    text-decoration: none;
+    color: white;
 }
 
 h1, button {
