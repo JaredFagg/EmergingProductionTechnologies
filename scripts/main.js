@@ -29,7 +29,6 @@ function main() {
 
 	//helper(scene, camera, renderer);
 	modifyScene(scene, camera);
-	//Array(200).fill().forEach(addStar);
 	createScene(scene);
 }
 
@@ -40,19 +39,6 @@ function modifyScene(sc, c) {
 	c.position.set(1.8, 2.4, 0);
 	c.lookAt(0, 0, 0);
 }
-
-function addStar() {
-	const geometry = new THREE.SphereGeometry(THREE.MathUtils.randFloatSpread(1.5), 24, 24);
-	const material = new THREE.MeshBasicMaterial({ color: 0x000000});
-	const star = new THREE.Mesh(geometry, material);
-  
-	const [x, y, z] = Array(3)
-	  .fill()
-	  .map(() => THREE.MathUtils.randFloatSpread(100));
-  
-	star.position.set(x, y, z);
-	scene.add(star);
-  }
 
 function createScene(sc) {
 	// Creates a Light
@@ -102,7 +88,10 @@ function createScene(sc) {
 			}
 		})
 
-		InteractableKeyboard.position.set(3, 5, 4.5);
+		InteractableKeyboard.name = "InteractableKeyboard";
+
+		InteractableKeyboard.position.set(3, 5, window.innerWidth / 390);
+
 
 		sc.add(InteractableKeyboard);
 	});
@@ -125,10 +114,10 @@ function createScene(sc) {
 	const pathGeometry = new THREE.BufferGeometry().setFromPoints(cameraTrack.getPoints(50));
 	const pathMaterial = new THREE.LineBasicMaterial({color: 0xff0000});
 	const pathObject = new THREE.Line(pathGeometry, pathMaterial);
-	scene.add(pathObject);
+	//scene.add(pathObject);
 	const pathGeometry2 = new THREE.BufferGeometry().setFromPoints(cameralookat.getPoints(50));
 	const pathObject2 = new THREE.Line(pathGeometry2, pathMaterial);
-	scene.add(pathObject2);
+	//scene.add(pathObject2);
 
 	camera.position.copy(cameraTrack.getPointAt(0));
 }
@@ -143,6 +132,16 @@ function onMouseWheel(event) {
 
 	camera.position.copy(cameraTrack.getPointAt(pathPos));
 	camera.lookAt(cameralookat.getPointAt(pathPos));
+}
+
+function animateKeyboard() {
+
+	if(InteractableKeyboard == null) {
+			 
+	} else {
+		InteractableKeyboard.rotation.y += 0.01;
+		InteractableKeyboard.position.set(3, 5, window.innerWidth / 420);
+	}
 }
 
 function helper(sc, c, r) {
@@ -162,7 +161,7 @@ function assignSettings() {
 function update() {
 	requestAnimationFrame(update);
 
-	InteractableKeyboard.rotation.y += 0.01;
+	animateKeyboard();
 
 	//controls.update();
 	assignSettings();
@@ -172,3 +171,23 @@ function update() {
 
 main();
 update();
+
+const raycaster = new THREE.Raycaster();
+
+document.addEventListener('mousedown', onMouseDown);
+
+function onMouseDown(event) {
+
+	const coords = new THREE.Vector2(
+		(event.clientX / renderer.domElement.clientWidth) * 2 - 1,
+		-((event.clientY / renderer.domElement.clientHeight) * 2 - 1),
+	);
+
+	raycaster.setFromCamera(coords, camera);
+
+	const intersections = raycaster.intersectObjects(scene.children, true);
+	if (intersections.length > 0) {
+		const selectedObject = intersections[0].object;
+		console.log(selectedObject);
+	}
+}
