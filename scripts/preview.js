@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-
 // Establishes ThreeJS Canvas, Renderer, Camera & Scene.
 const canvas = document.getElementById("PreviewCanvas");
 const camera = new THREE.PerspectiveCamera( 75, document.getElementById("PreviewCanvas").clientWidth / document.getElementById("PreviewCanvas").clientHeight, 0.1, 1000 );
@@ -26,15 +25,15 @@ scene.add(pointLight, ambientLight);
 const gltfLoader = new GLTFLoader();
 gltfLoader.load('./public/models/Keyboard_Scene.glb', function ( gltf) {
     const model = gltf.scene;
-    const sceneMaterial = new THREE.MeshPhongMaterial({
+    const modelMaterial = new THREE.MeshPhongMaterial({
     color: 0xffffff
     });
 
     model.traverse((o) => {
         if(o.isMesh) {
-            o.material = sceneMaterial;
+            o.material = modelMaterial;
         }
-    })
+    });
 
     scene.add(model);
 });
